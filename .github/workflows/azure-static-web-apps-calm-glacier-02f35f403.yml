@@ -14,6 +14,7 @@ jobs:
     if: github.event_name == 'push' || (github.event_name == 'pull_request' && github.event.action != 'closed')
     runs-on: ubuntu-latest
     name: Build and Deploy Job
+
     permissions:
       id-token: write
       contents: read
@@ -40,7 +41,11 @@ jobs:
         run: npm install --legacy-peer-deps
 
       - name: Build frontend
-        run: npm run build -- --outDir swa-output
+        run: |
+          npm run build
+          rm -rf swa-output
+          mkdir -p swa-output
+          cp -R out/* swa-output/
 
       - name: Verify output
         run: ls -la swa-output
