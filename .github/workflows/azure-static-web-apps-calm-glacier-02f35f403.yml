@@ -46,6 +46,8 @@ jobs:
           rm -rf swa-output
           mkdir -p swa-output
           cp -R out/* swa-output/
+          if [ -f staticwebapp.config.json ]; then cp staticwebapp.config.json swa-output/; fi
+          if [ -f routes.json ]; then cp routes.json swa-output/; fi
 
       - name: Verify output
         run: ls -la swa-output
